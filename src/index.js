@@ -8,18 +8,7 @@ dotenv.config();
 
 const{ DB_URL, DB_NAME } = process.env;
 
-
-/*
-        testQuery: [item]!
-    }
-    type item {
-        id:ID!
-        body: String!
-        username: String!
-        createAt: String!
-*/
 // dummy dataset 
-
 const dataset = [
     {
         id: "6272d10c669d25d7c98f3ff7",
@@ -30,10 +19,10 @@ const dataset = [
 ]
 const typeDefs = gql`
     type Query {
-        getItem: [item]
+        getItem: [post]
     }
-    type item {
-        id: ID!
+    type post {
+        _id: ID!
         body: String!
         username: String!
         createAt: String!        
@@ -43,7 +32,7 @@ const typeDefs = gql`
 const resolvers = {
     Query: {
 
-        getItem: async (_, __, { collection }) => {
+        getItem: async (_, __, { db }) => {
             return await db.collection('MERN')
                                       .find()
                                       .toArray();
